@@ -162,9 +162,36 @@ class appdevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        // burgeap_admin_homepage
-        if (0 === strpos($pathinfo, '/admin/index') && preg_match('#^/admin/index/(?<name>[^/]+)$#s', $pathinfo, $matches)) {
-            return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Burgeap\\AdminBundle\\Controller\\DefaultController::indexAction',)), array('_route' => 'burgeap_admin_homepage'));
+        if (0 === strpos($pathinfo, '/admin')) {
+            // burgeap_admin_homepage
+            if (rtrim($pathinfo, '/') === '/admin') {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'burgeap_admin_homepage');
+                }
+
+                return array (  '_controller' => 'Burgeap\\AdminBundle\\Controller\\AdminController::indexAction',  '_route' => 'burgeap_admin_homepage',);
+            }
+
+            // burgeap_admin_all_projects
+            if ($pathinfo === '/admin/projets') {
+                return array (  '_controller' => 'Burgeap\\AdminBundle\\Controller\\AdminController::projectsAction',  '_route' => 'burgeap_admin_all_projects',);
+            }
+
+            // burgeap_admin_current_projects
+            if ($pathinfo === '/admin/projets/actifs') {
+                return array (  '_controller' => 'Burgeap\\AdminBundle\\Controller\\AdminController::currentProjectsAction',  '_route' => 'burgeap_admin_current_projects',);
+            }
+
+            // burgeap_admin_deadlines
+            if ($pathinfo === '/admin/echeances') {
+                return array (  '_controller' => 'Burgeap\\AdminBundle\\Controller\\AdminController::deadlinesAction',  '_route' => 'burgeap_admin_deadlines',);
+            }
+
+            // burgeap_admin_calendar
+            if ($pathinfo === '/admin/calendrier') {
+                return array (  '_controller' => 'Burgeap\\AdminBundle\\Controller\\AdminController::calendarAction',  '_route' => 'burgeap_admin_calendar',);
+            }
+
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

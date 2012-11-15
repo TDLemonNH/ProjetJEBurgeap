@@ -1,3 +1,19 @@
 burgeap_admin_homepage:
-    pattern:  /index/{name}
-    defaults: { _controller: BurgeapAdminBundle:Default:index }
+    pattern:  /
+    defaults: { _controller: BurgeapAdminBundle:Admin:index }
+
+burgeap_admin_all_projects:
+    pattern:  /projets
+    defaults: { _controller: BurgeapAdminBundle:Admin:projects }
+    
+burgeap_admin_current_projects:
+    pattern:  /projets/actifs
+    defaults: { _controller: BurgeapAdminBundle:Admin:currentProjects }
+    
+burgeap_admin_deadlines:
+    pattern: /echeances
+    defaults: { _controller: BurgeapAdminBundle:Admin:deadlines }
+    
+burgeap_admin_calendar:
+    pattern: /calendrier
+    defaults: { _controller: BurgeapAdminBundle:Admin:calendar }

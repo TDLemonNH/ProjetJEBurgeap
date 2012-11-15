@@ -1,0 +1,7 @@
+{# empty Twig template #}
+
+<ul>
+{% for id, titre in liste_articles %}
+        <li><a href="{# {{ path('sdzblog_voir', {'id': id}) }} #}">{{titre }}</a></li>
+{% endfor %}
+</ul>

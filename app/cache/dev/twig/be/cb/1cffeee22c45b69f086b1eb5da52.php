@@ -7,23 +7,40 @@ class __TwigTemplate_becb1cffeee22c45b69f086b1eb5da52 extends Twig_Template
     {
         parent::__construct($env);
 
-        $this->parent = false;
+        $this->parent = $this->env->loadTemplate("BurgeapAdminBundle::layout.html.twig");
 
         $this->blocks = array(
+            'title' => array($this, 'block_title'),
+            'burgeapadmin_body' => array($this, 'block_burgeapadmin_body'),
         );
+    }
+
+    protected function doGetParent(array $context)
+    {
+        return "BurgeapAdminBundle::layout.html.twig";
     }
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        // line 1
-        echo "<html>
-    <body>
-        Page d'acceuil du module admin ! Bonjour ";
-        // line 3
-        echo twig_escape_filter($this->env, $this->getContext($context, "name"), "html", null, true);
+        $this->parent->display($context, array_merge($this->blocks, $blocks));
+    }
+
+    // line 3
+    public function block_title($context, array $blocks = array())
+    {
+        // line 4
+        echo "Index - ";
+        $this->displayParentBlock("title", $context, $blocks);
         echo "
-    </body>
-</html>";
+";
+    }
+
+    // line 6
+    public function block_burgeapadmin_body($context, array $blocks = array())
+    {
+        // line 7
+        echo "<h2>Liste des articles</h2>
+";
     }
 
     public function getTemplateName()
@@ -38,6 +55,6 @@ class __TwigTemplate_becb1cffeee22c45b69f086b1eb5da52 extends Twig_Template
 
     public function getDebugInfo()
     {
-        return array (  21 => 3,  17 => 1,);
+        return array (  40 => 7,  37 => 6,  30 => 4,  27 => 3,);
     }
 }
